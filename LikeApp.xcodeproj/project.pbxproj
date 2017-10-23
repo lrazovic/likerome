@@ -13,7 +13,6 @@
 		7DBB640A1F97966800128EF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB64091F97966800128EF6 /* ViewController.swift */; };
 		7DBB640F1F97966800128EF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DBB640E1F97966800128EF6 /* Assets.xcassets */; };
 		7DBB64121F97966800128EF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DBB64101F97966800128EF6 /* LaunchScreen.storyboard */; };
-		7DF5E3541F9E7F84006BC9F8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5E3531F9E7F84006BC9F8 /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		7DBB640E1F97966800128EF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DBB64111F97966800128EF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7DBB64131F97966800128EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7DF5E3531F9E7F84006BC9F8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8C9ECF487BD1939E01F0C7A4 /* Pods_LikeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LikeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE4D27A8D6C16D1565CBE2D1 /* Pods-LikeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LikeApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-LikeApp/Pods-LikeApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +76,6 @@
 				7DBB64091F97966800128EF6 /* ViewController.swift */,
 				7DBB64101F97966800128EF6 /* LaunchScreen.storyboard */,
 				7DBB64131F97966800128EF6 /* Info.plist */,
-				7DF5E3531F9E7F84006BC9F8 /* Model.swift */,
 			);
 			path = LikeApp;
 			sourceTree = "<group>";
@@ -222,7 +219,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DF5E3541F9E7F84006BC9F8 /* Model.swift in Sources */,
 				7DBB640A1F97966800128EF6 /* ViewController.swift in Sources */,
 				7DBB64081F97966800128EF6 /* AppDelegate.swift in Sources */,
 			);
