@@ -34,43 +34,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
-        //Levo la tastiera
-        self.textFieldShouldReturn(self.urlField)
-        
-        if urlField.text!.contains("instagram") {
-            let url = getUrl()
-            Alamofire.request(url).validate().responseJSON { response in
-                
-                switch response.result {
-                case .success:
-                    //Scarico JSON
-                    let swiftyJsonVar = JSON(response.result.value!)
-                    
-                    //Genero la Descrcizione
-                    self.generateDescription(swiftyJsonVar: swiftyJsonVar)
-                    
-                    //Scarico la Foto e la inserisco nella UI
-                    if let url = URL(string: self.getPhoto(swiftyJsonVar: swiftyJsonVar)) {
-                        self.downloadedPhoto.contentMode = .scaleAspectFit
-                        self.downloadImage(url: url)
-                    }
-                case .failure(_):
-                    print("Error")
-                }
-                
-            }
-        } else {
-            let alert = UIAlertController(title: "URL non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .`default`, handler: { _ in
-                NSLog("The \"OK\" alert occured.")
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }
+        self.buttonPressed()
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         cityPicker.dataSource = self
         cityPicker.delegate = self
@@ -88,7 +58,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
         self.view.endEditing(true)
-        return false
+        self.buttonPressed()
+        return true
     }
     
     func getPhoto(swiftyJsonVar:JSON) -> String {
@@ -143,6 +114,39 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
     }
     
-    
+    func buttonPressed(){
+        //Levo la tastiera
+        self.hideKeyboardWhenTappedAround()
+        
+        if urlField.text!.contains("instagram") {
+            let url = getUrl()
+            Alamofire.request(url).validate().responseJSON { response in
+                
+                switch response.result {
+                case .success:
+                    //Scarico JSON
+                    let swiftyJsonVar = JSON(response.result.value!)
+                    
+                    //Genero la Descrcizione
+                    self.generateDescription(swiftyJsonVar: swiftyJsonVar)
+                    
+                    //Scarico la Foto e la inserisco nella UI
+                    if let url = URL(string: self.getPhoto(swiftyJsonVar: swiftyJsonVar)) {
+                        self.downloadedPhoto.contentMode = .scaleAspectFit
+                        self.downloadImage(url: url)
+                    }
+                case .failure(_):
+                    print("Error")
+                }
+                
+            }
+        } else {
+            let alert = UIAlertController(title: "URL non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .`default`, handler: { _ in
+                NSLog("The \"OK\" alert occured.")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
