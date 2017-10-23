@@ -34,8 +34,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        
         //Levo la tastiera
-        self.textFieldShouldReturn(self.urlField)
+        self.hideKeyboardWhenTappedAround()
         
         if urlField.text!.contains("instagram") {
             let url = getUrl()
@@ -71,6 +72,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         
         cityPicker.dataSource = self
         cityPicker.delegate = self
