@@ -18,6 +18,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var cityPicker: UIPickerView!
     @IBOutlet weak var downloadedPhoto: UIImageView!
+    @IBOutlet weak var locationText: UILabel!
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -135,8 +136,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                         self.downloadedPhoto.contentMode = .scaleAspectFit
                         self.downloadImage(url: url)
                     }
+                    
+                    //Scrivo il Geotag
+                    self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
                 case .failure(_):
-                    print("Error")
+                    let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .`default`, handler: { _ in
+                        NSLog("The \"OK\" alert occured.")
+                    }))
+                    self.present(alert, animated: true, completion: nil)
                 }
                 
             }
@@ -148,5 +156,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func getLocation(swiftyJsonVar:JSON) -> String {
+        let locationString = swiftyJsonVar["graphql"]["shortcode_media"]["location"]["name"].stringValue
+        print("locationString:" + locationString)
+        if (locationString == "") { return "📍" + "Non Impostata" }
+        else { return "📍" + locationString }
+    }
 }
+
+
+
 

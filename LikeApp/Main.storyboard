@@ -40,9 +40,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hRm-ik-RLG">
-                                <rect key="frame" x="16" y="151" width="343" height="118"/>
+                                <rect key="frame" x="16" y="130" width="343" height="118"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="📍" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ELQ-Zf-HmV">
+                                <rect key="frame" x="96" y="256" width="182" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -57,6 +64,7 @@
                     <connections>
                         <outlet property="cityPicker" destination="hRm-ik-RLG" id="LiP-Mf-Uzu"/>
                         <outlet property="downloadedPhoto" destination="4KN-7e-s7u" id="7xT-ag-vRa"/>
+                        <outlet property="locationText" destination="ELQ-Zf-HmV" id="61R-2l-XCC"/>
                         <outlet property="urlField" destination="mbk-7A-2fo" id="3IG-L0-I8n"/>
                     </connections>
                 </viewController>
