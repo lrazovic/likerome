@@ -14,43 +14,18 @@ import AVFoundation
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    let pickerData = ["Roma","Torino","Milano","Bologna","Napoli"]
-    var pickedCity: String = "Roma"
-    var player: AVAudioPlayer?
-    
-    @IBOutlet weak var buttonUi: UIButton!
-    @IBOutlet weak var urlField: UITextField!
-    @IBOutlet weak var cityPicker: UIPickerView!
-    @IBOutlet weak var downloadedPhoto: UIImageView!
-    @IBOutlet weak var locationText: UILabel!
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        pickedCity = pickerData[row]
-        return pickerData[row] as String
-    }
-    
-    
-    
-    @IBAction func generateButton(_ sender: UIButton) {
-        self.buttonPressed()
-    }
-
-    
-    
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         self.buttonUi.layer.cornerRadius = 20
+        self.buttonUi.center = view.center
         self.cityPicker.center = view.center
-        self.downloadedPhoto.roundCornersForAspectFit(radius: 10.0)
+        self.downloadedPhoto.layer.cornerRadius = 25
+        self.downloadedPhoto.layer.shadowOffset = CGSize(width: 3, height: 2)
+        self.downloadedPhoto.layer.shadowRadius = 5.0
+        self.downloadedPhoto.layer.shadowOpacity = 0.75
+        self.downloadedPhoto.layer.shadowColor = UIColor.black.cgColor
+        self.downloadedPhoto.contentMode = .scaleAspectFit // OR .scaleAspectFill
         self.hideKeyboardWhenTappedAround()
         
         cityPicker.dataSource = self
@@ -63,9 +38,40 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if let myString = UIPasteboard.general.string {
             if(UIPasteboard.general.string?.contains("instagram"))! {
                 urlField.insertText(myString)
+            }
         }
     }
-}
+    
+    // MARK: Variables
+    let pickerData = ["Roma","Torino","Milano","Bologna","Napoli"]
+    var pickedCity: String = "Roma"
+    var player: AVAudioPlayer?
+    
+    // MARK: Outlets
+    @IBOutlet weak var buttonUi: UIButton!
+    @IBOutlet weak var urlField: UITextField!
+    @IBOutlet weak var cityPicker: UIPickerView!
+    @IBOutlet weak var downloadedPhoto: UIImageView!
+    @IBOutlet weak var locationText: UILabel!
+    
+    // MARK: Functions
+    @IBAction func generateButton(_ sender: UIButton) {
+        self.buttonPressed()
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        pickedCity = pickerData[row]
+        return pickerData[row] as String
+    }
+    
     
     func textFieldShouldReturn(_ scoreText: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -103,9 +109,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     @objc func longPressed(sender: UILongPressGestureRecognizer) {
-        let shareText = ""
-        let vc = UIActivityViewController(activityItems: [shareText, self.downloadedPhoto.image!], applicationActivities: [])
-        self.present(vc, animated: true, completion: nil)
+        if (self.downloadedPhoto.image != nil) {
+            let shareText = ""
+            let vc = UIActivityViewController(activityItems: [shareText, self.downloadedPhoto.image!], applicationActivities: [])
+            self.present(vc, animated: true, completion: nil) } else { return }
     }
     
     func generateDescription(swiftyJsonVar:JSON)  {
@@ -118,7 +125,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             case "Roma":
                 return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
             case "Torino":
-                return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag:#️⃣ #liketorino\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
+                return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag:#️⃣ #liketorino\n-\n\n#torino #ig_piemonte #ig_piedmont #instaitalia #igersitaly #italiainunoscatto #bellaitalia #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
             case "Milano":
                 return "📍 Milano\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likemilano\n-\nTag:#️⃣ #likemilano\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
             default:
@@ -127,7 +134,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func buttonPressed(){
-        
         //Levo la tastiera
         self.hideKeyboardWhenTappedAround()
         
@@ -135,7 +141,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             self.playSound(name: "done")
             let url = getUrl()
             Alamofire.request(url).validate().responseJSON { response in
-                
                 switch response.result {
                 case .success:
                     //Scarico JSON
@@ -178,20 +183,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         else { return "📍" + locationString }
     }
     
-    
     func playSound(name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else { return }
-        
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try AVAudioSession.sharedInstance().setActive(true)
-            
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
-            
             guard let player = player else { return }
-            
             player.play()
-            
         } catch let error {
             print(error.localizedDescription)
         }

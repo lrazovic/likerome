@@ -13,6 +13,7 @@
         <!--LikeApp-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <viewController title="LikeApp" id="BYZ-38-t0r" customClass="ViewController" customModule="LikeApp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -108,7 +109,6 @@
                         <outlet property="urlField" destination="mbk-7A-2fo" id="3IG-L0-I8n"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="492" y="169.56521739130437"/>
         </scene>
