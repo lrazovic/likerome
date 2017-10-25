@@ -9,12 +9,16 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import AVFoundation
+
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    let pickerData = ["Roma","Torino","Milano"]
+    let pickerData = ["Roma","Torino","Milano","Bologna","Napoli"]
     var pickedCity: String = "Roma"
+    var player: AVAudioPlayer?
     
+    @IBOutlet weak var buttonUi: UIButton!
     @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var cityPicker: UIPickerView!
     @IBOutlet weak var downloadedPhoto: UIImageView!
@@ -23,6 +27,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerData.count
@@ -34,13 +39,18 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
-    @IBAction func doneButton(_ sender: UIBarButtonItem) {
+    
+    @IBAction func generateButton(_ sender: UIButton) {
         self.buttonPressed()
     }
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.buttonUi.layer.cornerRadius = 20
+        self.cityPicker.center = view.center
+        self.downloadedPhoto.roundCornersForAspectFit(radius: 10.0)
         self.hideKeyboardWhenTappedAround()
         
         cityPicker.dataSource = self
@@ -89,6 +99,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.downloadedPhoto.image = UIImage(data: data)
             }
         }
+        self.playSound(name: "complete")
     }
     
     @objc func longPressed(sender: UILongPressGestureRecognizer) {
@@ -116,10 +127,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func buttonPressed(){
+        
         //Levo la tastiera
         self.hideKeyboardWhenTappedAround()
         
         if urlField.text!.contains("instagram") {
+            self.playSound(name: "done")
             let url = getUrl()
             Alamofire.request(url).validate().responseJSON { response in
                 
@@ -140,6 +153,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     //Scrivo il Geotag
                     self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
                 case .failure(_):
+                    self.playSound(name: "error")
                     let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .`default`, handler: { _ in
                         NSLog("The \"OK\" alert occured.")
@@ -149,6 +163,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 
             }
         } else {
+            self.playSound(name: "error")
             let alert = UIAlertController(title: "URL non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .`default`, handler: { _ in
                 NSLog("The \"OK\" alert occured.")
@@ -159,9 +174,27 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func getLocation(swiftyJsonVar:JSON) -> String {
         let locationString = swiftyJsonVar["graphql"]["shortcode_media"]["location"]["name"].stringValue
-        print("locationString:" + locationString)
         if (locationString == "") { return "📍" + "Non Impostata" }
         else { return "📍" + locationString }
+    }
+    
+    
+    func playSound(name: String) {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
+            
+            guard let player = player else { return }
+            
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 
