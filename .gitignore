@@ -1,2 +1,5 @@
 *.icloud
 .DS_Store
+
+# Pods
+Pods
