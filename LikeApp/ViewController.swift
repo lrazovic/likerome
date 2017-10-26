@@ -17,33 +17,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.buttonUi.layer.cornerRadius = 20
-        self.buttonUi.center = view.center
-        self.cityPicker.center = view.center
-        self.downloadedPhoto.layer.cornerRadius = 25
-        self.downloadedPhoto.layer.shadowOffset = CGSize(width: 3, height: 2)
-        self.downloadedPhoto.layer.shadowRadius = 5.0
-        self.downloadedPhoto.layer.shadowOpacity = 0.75
-        self.downloadedPhoto.layer.shadowColor = UIColor.black.cgColor
-        self.downloadedPhoto.contentMode = .scaleAspectFit // OR .scaleAspectFill
-        self.hideKeyboardWhenTappedAround()
-        
+        self.setUI()
         cityPicker.dataSource = self
         cityPicker.delegate = self
         urlField.delegate = self
-        
-        downloadedPhoto.isUserInteractionEnabled = true
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
-        self.downloadedPhoto.addGestureRecognizer(longPressRecognizer)
-        if let myString = UIPasteboard.general.string {
-            if(UIPasteboard.general.string?.contains("instagram"))! {
-                urlField.insertText(myString)
-            }
+        if(UIPasteboard.general.string?.contains("instagram"))! {
+            urlString = UIPasteboard.general.string!
+            urlField.insertText(urlString)
         }
     }
     
     // MARK: Variables
     let pickerData = ["Roma","Torino","Milano","Bologna","Napoli"]
+    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+    var urlString: String = ""
     var pickedCity: String = "Roma"
     var player: AVAudioPlayer?
     
@@ -105,6 +92,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 self.downloadedPhoto.image = UIImage(data: data)
             }
         }
+        UIViewPropertyAnimator(duration: 1, curve: .easeIn) {
+            self.downloadedPhoto.layer.cornerRadius = 8
+            self.setShadow()
+            }.startAnimation()
         self.playSound(name: "complete")
     }
     
@@ -128,8 +119,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag:#️⃣ #liketorino\n-\n\n#torino #ig_piemonte #ig_piedmont #instaitalia #igersitaly #italiainunoscatto #bellaitalia #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
             case "Milano":
                 return "📍 Milano\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likemilano\n-\nTag:#️⃣ #likemilano\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
-            default:
-                return "altro"
+            case _:
+                return "Altra Citta"
         }
     }
     
@@ -186,7 +177,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func playSound(name: String) {
         guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else { return }
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             try AVAudioSession.sharedInstance().setActive(true)
             player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
             guard let player = player else { return }
@@ -194,6 +185,31 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         } catch let error {
             print(error.localizedDescription)
         }
+    }
+    
+    func setUI(){
+        // Button
+        self.buttonUi.layer.cornerRadius = 20
+        self.buttonUi.center = view.center
+        
+        // Picker
+        self.cityPicker.center = view.center
+        
+        // Image
+        self.downloadedPhoto.contentMode = .scaleAspectFill
+        self.downloadedPhoto.clipsToBounds = true
+        self.downloadedPhoto.isUserInteractionEnabled = true
+        self.downloadedPhoto.addGestureRecognizer(longPressRecognizer)
+        
+        // Keyboard
+        self.hideKeyboardWhenTappedAround()
+    }
+    
+    func setShadow() {
+        self.downloadedPhoto.layer.shadowOpacity = 0.45
+        //self.downloadedPhoto.layer.shadowColor = .CGColor
+        self.downloadedPhoto.layer.shadowRadius = 8
+        self.downloadedPhoto.layer.shadowOffset = CGSize(width: 10, height: 10)
     }
 }
 
