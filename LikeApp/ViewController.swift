@@ -17,6 +17,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        self.downloadedPhoto.addGestureRecognizer(longPressRecognizer)
         self.setUI()
         cityPicker.dataSource = self
         cityPicker.delegate = self
@@ -29,7 +31,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     // MARK: Variables
     let pickerData = ["Roma","Torino","Milano","Bologna","Napoli"]
-    let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
     var urlString: String = ""
     var pickedCity: String = "Roma"
     var player: AVAudioPlayer?
@@ -156,7 +157,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     }))
                     self.present(alert, animated: true, completion: nil)
                 }
-                
             }
         } else {
             self.playSound(name: "error")
@@ -199,7 +199,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.downloadedPhoto.contentMode = .scaleAspectFill
         self.downloadedPhoto.clipsToBounds = true
         self.downloadedPhoto.isUserInteractionEnabled = true
-        self.downloadedPhoto.addGestureRecognizer(longPressRecognizer)
         
         // Keyboard
         self.hideKeyboardWhenTappedAround()
