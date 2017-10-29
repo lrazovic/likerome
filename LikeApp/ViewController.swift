@@ -30,7 +30,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     // MARK: Variables
-    let pickerData = ["Roma","Torino","Milano","Bologna","Napoli"]
+    let pickerData = ["Torino","Roma","Milano","Bologna","Napoli"]
     var urlString: String = ""
     var pickedCity: String = "Roma"
     var player: AVAudioPlayer?
@@ -117,7 +117,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             case "Roma":
                 return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
             case "Torino":
-                return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag:#️⃣ #liketorino\n-\n\n#torino #ig_piemonte #ig_piedmont #instaitalia #igersitaly #italiainunoscatto #bellaitalia #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
+                return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag: #liketorino 🔖 Selezionata da: @claudiostoduto\n-\n\n#ig_piemonte #liketorino #ig_piedmont #bestpiemontepics #instaitalia #igersitaly #italiainunoscatto #loves_madeinitaly #bellaitalia #visititalia #lavitainunoscatto #italy_photolovers #borghitalia #bestitaliapics #igers_italia #total_italy #torinoèlamiacittà #torino #cittàditorino"
             case "Milano":
                 return "📍 Milano\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likemilano\n-\nTag:#️⃣ #likemilano\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
             case _:
