@@ -23,16 +23,17 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         cityPicker.dataSource = self
         cityPicker.delegate = self
         urlField.delegate = self
-        if(UIPasteboard.general.string?.contains("instagram"))! {
-            urlString = UIPasteboard.general.string!
+        if((pasteboard.string?.range(of:"instagram")) != nil) {
+            urlString = pasteboard.string!
             urlField.insertText(urlString)
         }
     }
     
     // MARK: Variables
     let pickerData = ["Torino","Roma","Milano","Bologna","Napoli"]
+    let pasteboard = UIPasteboard.general
     var urlString: String = ""
-    var pickedCity: String = "Roma"
+    var pickedCity: String = ""
     var player: AVAudioPlayer?
     
     // MARK: Outlets
