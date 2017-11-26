@@ -116,7 +116,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func getRightDesc(pickedCity: String, username: String) -> String {
         switch pickedCity {
             case "Roma":
-                return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
+                return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#Roma #igerslazio #igersroma #ig_rome #ig_lazio  #volgoroma #volgoitalia #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #likeitaly #igersitalia #ig_europe #igers_italia #total_italy #romanity #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer #lazioisme"
             case "Torino":
                 return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag: #liketorino 🔖 Selezionata da: @claudiostoduto\n-\n\n#ig_piemonte #liketorino #ig_piedmont #bestpiemontepics #instaitalia #igersitaly #italiainunoscatto #loves_madeinitaly #bellaitalia #visititalia #lavitainunoscatto #italy_photolovers #borghitalia #bestitaliapics #igers_italia #total_italy #torinoèlamiacittà #torino #cittàditorino"
             case "Milano":
@@ -131,7 +131,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.hideKeyboardWhenTappedAround()
         
         if urlField.text!.contains("instagram") {
-            self.playSound(name: "done")
             let url = getUrl()
             Alamofire.request(url).validate().responseJSON { response in
                 switch response.result {
@@ -150,6 +149,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     
                     //Scrivo il Geotag
                     self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
+                    self.playSound(name: "done")
                 case .failure(_):
                     self.playSound(name: "error")
                     let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
