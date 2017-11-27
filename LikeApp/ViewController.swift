@@ -69,13 +69,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func getPhoto(swiftyJsonVar:JSON) -> String {
-      return swiftyJsonVar["graphql"]["shortcode_media"]["display_url"].stringValue
+        return swiftyJsonVar["graphql"]["shortcode_media"]["display_url"].stringValue
     }
     
     func getUrl() -> String {
         return urlField.text! + "?__a=1"
     }
-        
+    
     func getUsername(swiftyJsonVar:JSON) -> String {
         return swiftyJsonVar["graphql"]["shortcode_media"]["owner"]["username"].stringValue
     }
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
-        }.resume()
+            }.resume()
     }
     
     func downloadImage(url: URL) {
@@ -91,13 +91,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             guard let data = data, error == nil else { return }
             print(response?.suggestedFilename ?? url.lastPathComponent)
             DispatchQueue.main.async() {
+                self.downloadedPhoto.contentMode = .scaleAspectFill
+                self.downloadedPhoto.frame = CGRect(x: 0, y: 0, width: 320, height: 320)
+                self.downloadedPhoto.layer.cornerRadius = 24
+                self.downloadedPhoto.clipsToBounds = true
+                self.downloadedPhoto.isUserInteractionEnabled = true
+                self.setShadow()
                 self.downloadedPhoto.image = UIImage(data: data)
             }
         }
-        UIViewPropertyAnimator(duration: 1, curve: .easeIn) {
-            self.downloadedPhoto.layer.cornerRadius = 8
-            self.setShadow()
-            }.startAnimation()
         self.playSound(name: "complete")
     }
     
@@ -115,14 +117,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func getRightDesc(pickedCity: String, username: String) -> String {
         switch pickedCity {
-            case "Roma":
-                return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#Roma #igerslazio #igersroma #ig_rome #ig_lazio  #volgoroma #volgoitalia #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #likeitaly #igersitalia #ig_europe #igers_italia #total_italy #romanity #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer #lazioisme"
-            case "Torino":
-                return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag: #liketorino 🔖 Selezionata da: @claudiostoduto\n-\n\n#ig_piemonte #liketorino #ig_piedmont #bestpiemontepics #instaitalia #igersitaly #italiainunoscatto #loves_madeinitaly #bellaitalia #visititalia #lavitainunoscatto #italy_photolovers #borghitalia #bestitaliapics #igers_italia #total_italy #torinoèlamiacittà #torino #cittàditorino"
-            case "Milano":
-                return "📍 Milano\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likemilano\n-\nTag:#️⃣ #likemilano\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
-            case _:
-                return "Altra Citta"
+        case "Roma":
+            return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
+        case "Torino":
+            return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag: #liketorino 🔖 Selezionata da: @claudiostoduto\n-\n\n#ig_piemonte #liketorino #ig_piedmont #bestpiemontepics #instaitalia #igersitaly #italiainunoscatto #loves_madeinitaly #bellaitalia #visititalia #lavitainunoscatto #italy_photolovers #borghitalia #bestitaliapics #igers_italia #total_italy #torinoèlamiacittà #torino #cittàditorino"
+        case "Milano":
+            return "📍 Milano\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likemilano\n-\nTag:#️⃣ #likemilano\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
+        case _:
+            return "Altra Citta"
         }
     }
     
@@ -143,7 +145,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     
                     //Scarico la Foto e la inserisco nella UI
                     if let url = URL(string: self.getPhoto(swiftyJsonVar: swiftyJsonVar)) {
-                        self.downloadedPhoto.contentMode = .scaleAspectFit
                         self.downloadImage(url: url)
                     }
                     
@@ -190,16 +191,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func setUI(){
         // Button
-        self.buttonUi.layer.cornerRadius = 20
+        self.buttonUi.layer.cornerRadius = 10
         self.buttonUi.center = view.center
         
         // Picker
         self.cityPicker.center = view.center
         
         // Image
-        self.downloadedPhoto.contentMode = .scaleAspectFill
-        self.downloadedPhoto.clipsToBounds = true
-        self.downloadedPhoto.isUserInteractionEnabled = true
         
         // Keyboard
         self.hideKeyboardWhenTappedAround()
@@ -207,12 +205,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func setShadow() {
         self.downloadedPhoto.layer.shadowOpacity = 0.45
-        //self.downloadedPhoto.layer.shadowColor = .CGColor
         self.downloadedPhoto.layer.shadowRadius = 8
-        self.downloadedPhoto.layer.shadowOffset = CGSize(width: 10, height: 10)
+        self.downloadedPhoto.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
 }
-
-
-
-
