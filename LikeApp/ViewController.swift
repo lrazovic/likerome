@@ -13,9 +13,14 @@ import UIKit
 
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         downloadedPhoto.addGestureRecognizer(longPressRecognizer)
         setUI()
@@ -29,7 +34,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     // MARK: Variables
-    let pickerData = ["Torino", "Roma", "Milano", "Bologna", "Napoli"]
+    let pickerData = ["Roma", "Torino", "Milano", "Bologna", "Napoli"]
     let pasteboard = UIPasteboard.general
     var urlString: String = ""
     var pickedCity: String = ""
@@ -90,15 +95,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             print(response?.suggestedFilename ?? url.lastPathComponent)
             DispatchQueue.main.async {
                 self.downloadedPhoto.contentMode = .scaleAspectFill
-                self.downloadedPhoto.frame = CGRect(x: 0, y: 0, width: 320, height: 320)
-                self.downloadedPhoto.layer.cornerRadius = 24
                 self.downloadedPhoto.clipsToBounds = true
                 self.downloadedPhoto.isUserInteractionEnabled = true
-                self.setShadow()
                 self.downloadedPhoto.image = UIImage(data: data)
+                self.playSound(name: "complete")
             }
         }
-        playSound(name: "complete")
     }
 
     @objc func longPressed(sender _: UILongPressGestureRecognizer) {
@@ -135,6 +137,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             Alamofire.request(url).validate().responseJSON { response in
                 switch response.result {
                 case .success:
+
+                    // Pulisco l'URL
+                    self.urlField.text = ""
+
                     // Scarico JSON
                     let swiftyJsonVar = JSON(response.result.value!)
 
@@ -149,6 +155,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     // Scrivo il Geotag
                     self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
                     self.playSound(name: "done")
+
                 case .failure:
                     self.playSound(name: "error")
                     let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
@@ -175,11 +182,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     func playSound(name: String) {
-        guard let url = Bundle.main.url(forResource: name, withExtension: "m4a") else { return }
+        guard let sound = Bundle.main.url(forResource: name, withExtension: "m4a") else { return }
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
             try AVAudioSession.sharedInstance().setActive(true)
-            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.m4a.rawValue)
+            player = try AVAudioPlayer(contentsOf: sound, fileTypeHint: AVFileType.m4a.rawValue)
             guard let player = player else { return }
             player.play()
         } catch let error {
@@ -188,14 +195,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     func setUI() {
+
         // Button
         buttonUi.layer.cornerRadius = 10
         buttonUi.center = view.center
 
         // Picker
         cityPicker.center = view.center
-
-        // Image
 
         // Keyboard
         hideKeyboardWhenTappedAround()
@@ -205,5 +211,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         downloadedPhoto.layer.shadowOpacity = 0.45
         downloadedPhoto.layer.shadowRadius = 8
         downloadedPhoto.layer.shadowOffset = CGSize(width: 0, height: 2)
+    }
+
+    @objc func willEnterForeground() {
+        if (pasteboard.string?.range(of: "instagram")) != nil {
+            urlString = pasteboard.string!
+            urlField.insertText(urlString)
+        }
     }
 }
