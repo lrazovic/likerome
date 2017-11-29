@@ -20,6 +20,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        definesPresentationContext = true
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         downloadedPhoto.addGestureRecognizer(longPressRecognizer)
@@ -39,7 +40,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var urlString: String = ""
     var pickedCity: String = ""
     var player: AVAudioPlayer?
-
+    let impGenerator = UIImpactFeedbackGenerator()
+    let selGenerator = UISelectionFeedbackGenerator();
+    
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
     @IBOutlet var urlField: UITextField!
@@ -50,6 +53,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // MARK: Functions
     @IBAction func generateButton(_: UIButton) {
         buttonPressed()
+        impGenerator.impactOccurred()
     }
 
     func numberOfComponents(in _: UIPickerView) -> Int {
@@ -87,6 +91,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
         }.resume()
+        selGenerator.selectionChanged()
     }
 
     func downloadImage(url: URL) {
@@ -105,9 +110,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
     @objc func longPressed(sender _: UILongPressGestureRecognizer) {
         if downloadedPhoto.image != nil {
-            let shareText = ""
-            let vc = UIActivityViewController(activityItems: [shareText, self.downloadedPhoto.image!], applicationActivities: [])
-            present(vc, animated: true, completion: nil) } else { return }
+            let vc = UIActivityViewController(activityItems: [self.downloadedPhoto.image!], applicationActivities: nil)
+            present(vc, animated: true)
+        }
     }
 
     func generateDescription(swiftyJsonVar: JSON) {
@@ -160,7 +165,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     self.playSound(name: "error")
                     let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                        NSLog("The \"OK\" alert occured.")
+                        //NSLog("The \"OK\" alert occured.")
                     }))
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -201,7 +206,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         buttonUi.center = view.center
 
         // Picker
-        cityPicker.center = view.center
+        //cityPicker.center = view.center
 
         // Keyboard
         hideKeyboardWhenTappedAround()

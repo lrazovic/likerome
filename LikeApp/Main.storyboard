@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,9 +21,8 @@
                             <pickerView autoresizesSubviews="NO" verifyAmbiguity="off" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRm-ik-RLG">
                                 <rect key="frame" x="27" y="436" width="320" height="161"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="hRm-ik-RLG" secondAttribute="height" multiplier="320:161" id="Gky-Vf-SSi"/>
                                     <constraint firstAttribute="width" constant="320" id="KzG-vb-yx3"/>
-                                    <constraint firstAttribute="height" constant="161" id="eYN-2b-Oaz"/>
+                                    <constraint firstAttribute="height" constant="161" id="eYN-2b-Oaz" userLabel="height = 160"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="H9O-vr-lWM"/>
                             </pickerView>
@@ -38,7 +36,7 @@
                                     <action selector="generateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0gq-TS-7sU"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4KN-7e-s7u" customClass="UIImageViewWithMask" customModule="LikeApp" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4KN-7e-s7u">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="364"/>
                                 <viewLayoutGuide key="safeArea" id="qo1-yM-wPi"/>
                             </imageView>
@@ -63,10 +61,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="hRm-ik-RLG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3hB-Iu-hSV"/>
                             <constraint firstItem="mbk-7A-2fo" firstAttribute="top" secondItem="4KN-7e-s7u" secondAttribute="bottom" constant="50" id="589-Wc-lR1"/>
                             <constraint firstItem="hRm-ik-RLG" firstAttribute="top" secondItem="mbk-7A-2fo" secondAttribute="bottom" constant="-9" id="8J1-pk-gPi"/>
-                            <constraint firstItem="4KN-7e-s7u" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Azk-Ee-Ame"/>
                             <constraint firstItem="hRm-ik-RLG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="E05-Ip-EHa"/>
                             <constraint firstItem="4KN-7e-s7u" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Mnd-Ch-JRB"/>
                             <constraint firstItem="mbk-7A-2fo" firstAttribute="trailing" secondItem="kh8-0K-D0q" secondAttribute="trailing" constant="-12" id="O8J-3o-DaG"/>
@@ -74,12 +70,10 @@
                             <constraint firstItem="kh8-0K-D0q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Xop-X5-Gc0"/>
                             <constraint firstItem="mbk-7A-2fo" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-12" id="eXC-tb-CKU"/>
                             <constraint firstItem="4KN-7e-s7u" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fZ0-Rg-Opb"/>
-                            <constraint firstItem="mbk-7A-2fo" firstAttribute="top" secondItem="4KN-7e-s7u" secondAttribute="bottom" constant="50" id="rDU-3A-7Rh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kh8-0K-D0q" secondAttribute="bottom" constant="16" id="rUN-x4-zMR"/>
                             <constraint firstItem="kh8-0K-D0q" firstAttribute="top" secondItem="hRm-ik-RLG" secondAttribute="bottom" constant="2" id="tep-iW-NxX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hRm-ik-RLG" secondAttribute="trailing" constant="28" id="uKh-c8-Yo7"/>
                             <constraint firstItem="4KN-7e-s7u" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="wZu-od-HFA"/>
-                            <constraint firstItem="4KN-7e-s7u" firstAttribute="centerX" secondItem="hRm-ik-RLG" secondAttribute="centerX" id="zlI-Tq-AJ7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
