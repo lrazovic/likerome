@@ -11,11 +11,7 @@ import AVFoundation
 import SwiftyJSON
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: viewDidLoad
     override func viewDidLoad() {
@@ -25,8 +21,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         downloadedPhoto.addGestureRecognizer(longPressRecognizer)
         setUI()
-        cityPicker.dataSource = self
-        cityPicker.delegate = self
         urlField.delegate = self
         if (pasteboard.string?.range(of: "instagram")) != nil {
             urlString = pasteboard.string!
@@ -35,10 +29,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     // MARK: Variables
-    let pickerData = ["Roma", "Torino", "Milano", "Bologna", "Napoli"]
     let pasteboard = UIPasteboard.general
     var urlString: String = ""
-    var pickedCity: String = ""
     var player: AVAudioPlayer?
     let impGenerator = UIImpactFeedbackGenerator()
     let selGenerator = UISelectionFeedbackGenerator();
@@ -46,27 +38,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
     @IBOutlet var urlField: UITextField!
-    @IBOutlet var cityPicker: UIPickerView!
     @IBOutlet var downloadedPhoto: UIImageView!
     @IBOutlet var locationText: UILabel!
-
+    @IBOutlet var usernameText: UILabel!
+    
     // MARK: Functions
     @IBAction func generateButton(_: UIButton) {
         buttonPressed()
         impGenerator.impactOccurred()
-    }
-
-    func numberOfComponents(in _: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_: UIPickerView, numberOfRowsInComponent _: Int) -> Int {
-        return pickerData.count
-    }
-
-    func pickerView(_: UIPickerView, titleForRow row: Int, forComponent _: Int) -> String? {
-        pickedCity = pickerData[row]
-        return pickerData[row] as String
     }
 
     func textFieldShouldReturn(_: UITextField) -> Bool {
@@ -87,26 +66,21 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return swiftyJsonVar["graphql"]["shortcode_media"]["owner"]["username"].stringValue
     }
 
-    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            completion(data, response, error)
-        }.resume()
-        selGenerator.selectionChanged()
-    }
-
     func downloadImage(url: URL) {
-        getDataFromUrl(url: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            print(response?.suggestedFilename ?? url.lastPathComponent)
-            DispatchQueue.main.async {
-                self.downloadedPhoto.contentMode = .scaleAspectFill
-                self.downloadedPhoto.clipsToBounds = true
-                self.downloadedPhoto.isUserInteractionEnabled = true
-                self.downloadedPhoto.image = UIImage(data: data)
-                self.playSound(name: "complete")
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            if let data = data {
+                _ = UIImage(data: data)
+                DispatchQueue.main.async {
+                    self?.downloadedPhoto.contentMode = .scaleAspectFill
+                    self?.downloadedPhoto.clipsToBounds = true
+                    self?.downloadedPhoto.isUserInteractionEnabled = true
+                    self?.downloadedPhoto.image = UIImage(data: data)
+                    self?.playSound(name: "complete")
+                }
             }
-        }
+        }.resume()
     }
+    
 
     @objc func longPressed(sender _: UILongPressGestureRecognizer) {
         if downloadedPhoto.image != nil {
@@ -116,21 +90,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     func generateDescription(swiftyJsonVar: JSON) {
-        let ret: String = getRightDesc(pickedCity: pickedCity, username: getUsername(swiftyJsonVar: swiftyJsonVar))
+        let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar))
         UIPasteboard.general.string = ret
     }
 
-    func getRightDesc(pickedCity: String, username: String) -> String {
-        switch pickedCity {
-        case "Roma":
-            return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
-        case "Torino":
-            return "📍 Torino\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @liketorino\n-\nTag: #liketorino 🔖 Selezionata da: @claudiostoduto\n-\n\n#ig_piemonte #liketorino #ig_piedmont #bestpiemontepics #instaitalia #igersitaly #italiainunoscatto #loves_madeinitaly #bellaitalia #visititalia #lavitainunoscatto #italy_photolovers #borghitalia #bestitaliapics #igers_italia #total_italy #torinoèlamiacittà #torino #cittàditorino"
-        case "Milano":
-            return "📍 Milano\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likemilano\n-\nTag:#️⃣ #likemilano\n-\n\n#torino #igerslazio #igersroma #ig_rome #volgoroma #noidiroma #unlimitedrome #ilmegliodiroma #yallerslazio #visit_rome #igersitalia #ig_europe #igers_italia #total_italy #noidiroma #italiainunoscatto #likeitaly #TheGlobeWanderer"
-        case _:
-            return "Altra Citta"
-        }
+    func getRightDesc(username: String) -> String {
+        return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #rome" +
+        "#ig_roma #ig_rome #igersroma #igerslazio #igersitalia #igers_italia #romanity #vatican #noidiroma #yallerslazio" +
+        "#visit_rome #total_italy #italiainunoscatto #likeitaly #loves_roma #wheninrome #whatitalyis #sfs"
     }
 
     func buttonPressed() {
@@ -159,6 +126,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
                     // Scrivo il Geotag
                     self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
+                    
+                    // Scrivo l'Username
+                    self.usernameText.text = "👤 @" + self.getUsername(swiftyJsonVar: swiftyJsonVar)
+                    
                     self.playSound(name: "done")
 
                 case .failure:
@@ -203,10 +174,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
         // Button
         buttonUi.layer.cornerRadius = 10
-        buttonUi.center = view.center
-
-        // Picker
-        //cityPicker.center = view.center
+        buttonUi.frame.size = CGSize(width: 343, height: 45)
 
         // Keyboard
         hideKeyboardWhenTappedAround()
