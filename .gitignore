@@ -3,3 +3,5 @@
 
 # Pods
 Pods
+*.lock
+*.lock

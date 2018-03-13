@@ -9,7 +9,6 @@
 import Alamofire
 import AVFoundation
 import SwiftyJSON
-import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -34,18 +33,35 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var player: AVAudioPlayer?
     let impGenerator = UIImpactFeedbackGenerator()
     let selGenerator = UISelectionFeedbackGenerator();
-    
+
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
     @IBOutlet var urlField: UITextField!
     @IBOutlet var downloadedPhoto: UIImageView!
     @IBOutlet var locationText: UILabel!
     @IBOutlet var usernameText: UILabel!
-    
+
+    // MARK: User Interface
+    func setUI() {
+
+        // Button
+        buttonUi.layer.cornerRadius = 10
+        buttonUi.frame.size = CGSize(width: 343, height: 45)
+
+        // Keyboard
+        hideKeyboardWhenTappedAround()
+    }
+
+    func setShadow() {
+        downloadedPhoto.layer.shadowOpacity = 0.45
+        downloadedPhoto.layer.shadowRadius = 8
+        downloadedPhoto.layer.shadowOffset = CGSize(width: 0, height: 2)
+    }
+
     // MARK: Functions
     @IBAction func generateButton(_: UIButton) {
-        buttonPressed()
         impGenerator.impactOccurred()
+        buttonPressed()
     }
 
     func textFieldShouldReturn(_: UITextField) -> Bool {
@@ -80,14 +96,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }.resume()
     }
-    
-
-    @objc func longPressed(sender _: UILongPressGestureRecognizer) {
-        if downloadedPhoto.image != nil {
-            let vc = UIActivityViewController(activityItems: [self.downloadedPhoto.image!], applicationActivities: nil)
-            present(vc, animated: true)
-        }
-    }
 
     func generateDescription(swiftyJsonVar: JSON) {
         let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar))
@@ -96,8 +104,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func getRightDesc(username: String) -> String {
         return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #rome" +
-        "#ig_roma #ig_rome #igersroma #igerslazio #igersitalia #igers_italia #romanity #vatican #noidiroma #yallerslazio" +
-        "#visit_rome #total_italy #italiainunoscatto #likeitaly #loves_roma #wheninrome #whatitalyis #sfs"
+            "#ig_roma #ig_rome #igersroma #igerslazio #igersitalia #igers_italia #romanity #vatican #noidiroma #yallerslazio" +
+            "#visit_rome #total_italy #italiainunoscatto #likeitaly #loves_roma #wheninrome #whatitalyis #rome_rooftops"
     }
 
     func buttonPressed() {
@@ -109,7 +117,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             Alamofire.request(url).validate().responseJSON { response in
                 switch response.result {
                 case .success:
-
                     // Pulisco l'URL
                     self.urlField.text = ""
 
@@ -126,18 +133,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
                     // Scrivo il Geotag
                     self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
-                    
+
                     // Scrivo l'Username
                     self.usernameText.text = "👤 @" + self.getUsername(swiftyJsonVar: swiftyJsonVar)
-                    
                     self.playSound(name: "done")
 
                 case .failure:
                     self.playSound(name: "error")
                     let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                        //NSLog("The \"OK\" alert occured.")
-                    }))
+                            //NSLog("The \"OK\" alert occured.")
+                        }))
                     self.present(alert, animated: true, completion: nil)
                 }
             }
@@ -145,8 +151,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.playSound(name: "error")
             let alert = UIAlertController(title: "URL non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                NSLog("The \"OK\" alert occured.")
-            }))
+                    NSLog("The \"OK\" alert occured.")
+                }))
             present(alert, animated: true, completion: nil)
         }
     }
@@ -170,26 +176,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func setUI() {
-
-        // Button
-        buttonUi.layer.cornerRadius = 10
-        buttonUi.frame.size = CGSize(width: 343, height: 45)
-
-        // Keyboard
-        hideKeyboardWhenTappedAround()
-    }
-
-    func setShadow() {
-        downloadedPhoto.layer.shadowOpacity = 0.45
-        downloadedPhoto.layer.shadowRadius = 8
-        downloadedPhoto.layer.shadowOffset = CGSize(width: 0, height: 2)
-    }
-
     @objc func willEnterForeground() {
         if (pasteboard.string?.range(of: "instagram")) != nil {
             urlString = pasteboard.string!
             urlField.insertText(urlString)
+        }
+    }
+
+    @objc func longPressed(sender _: UILongPressGestureRecognizer) {
+        if downloadedPhoto.image != nil {
+            let vc = UIActivityViewController(activityItems: [self.downloadedPhoto.image!], applicationActivities: nil)
+            present(vc, animated: true)
         }
     }
 }
