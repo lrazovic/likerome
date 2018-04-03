@@ -7,7 +7,8 @@ target 'LikeApp' do
 
   # Pods for LikeApp
 
-  pod 'Alamofire', '~> 4.5'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
   pod 'SwiftyJSON'
 
 end

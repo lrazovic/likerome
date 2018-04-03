@@ -8,6 +8,7 @@
 
 import Alamofire
 import AVFoundation
+import AlamofireImage
 import SwiftyJSON
 
 class ViewController: UIViewController, UITextFieldDelegate {
@@ -83,19 +84,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     func downloadImage(url: URL) {
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             if let data = data {
                 _ = UIImage(data: data)
                 DispatchQueue.main.async {
-                    self?.downloadedPhoto.contentMode = .scaleAspectFill
-                    self?.downloadedPhoto.clipsToBounds = true
-                    self?.downloadedPhoto.isUserInteractionEnabled = true
-                    self?.downloadedPhoto.image = UIImage(data: data)
-                    self?.playSound(name: "complete")
+                    self.downloadedPhoto.contentMode = .scaleAspectFill
+                    self.downloadedPhoto.clipsToBounds = true
+                    self.downloadedPhoto.isUserInteractionEnabled = true
+                    self.downloadedPhoto.image = UIImage(data: data)
+                    self.playSound(name: "complete")
                 }
             }
-        }.resume()
+        }).resume()
     }
+
 
     func generateDescription(swiftyJsonVar: JSON) {
         let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar))
@@ -112,13 +114,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Levo la tastiera
         hideKeyboardWhenTappedAround()
 
+
         if urlField.text!.contains("instagram") {
-            let url = getUrl()
+            let strURL = getUrl()
+            JSONWrapper.requestGETURL(strURL, success: {
+                (JSONResponse) -> Void in
+                if let url = URL(string: self.getPhoto(swiftyJsonVar: JSONResponse)) {
+                    self.downloadImage(url: url)
+                }
+                self.urlField.text = ""
+                self.locationText.text = self.getLocation(swiftyJsonVar: JSONResponse)
+                self.usernameText.text = "👤 @" + self.getUsername(swiftyJsonVar: JSONResponse)
+                self.generateDescription(swiftyJsonVar: JSONResponse)
+            }) {
+                (error) -> Void in
+                print(error)
+            }
+        }
+
+            /*
             Alamofire.request(url).validate().responseJSON { response in
                 switch response.result {
                 case .success:
                     // Pulisco l'URL
-                    self.urlField.text = ""
+
 
                     // Scarico JSON
                     let swiftyJsonVar = JSON(response.result.value!)
@@ -127,9 +146,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.generateDescription(swiftyJsonVar: swiftyJsonVar)
 
                     // Scarico la Foto e la inserisco nella UI
-                    if let url = URL(string: self.getPhoto(swiftyJsonVar: swiftyJsonVar)) {
-                        self.downloadImage(url: url)
-                    }
 
                     // Scrivo il Geotag
                     self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
@@ -142,8 +158,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.playSound(name: "error")
                     let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                            //NSLog("The \"OK\" alert occured.")
-                        }))
+                        //NSLog("The \"OK\" alert occured.")
+                    }))
                     self.present(alert, animated: true, completion: nil)
                 }
             }
@@ -151,10 +167,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
             self.playSound(name: "error")
             let alert = UIAlertController(title: "URL non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                    NSLog("The \"OK\" alert occured.")
-                }))
+                NSLog("The \"OK\" alert occured.")
+            }))
             present(alert, animated: true, completion: nil)
         }
+ */
     }
 
     func getLocation(swiftyJsonVar: JSON) -> String {
