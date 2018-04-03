@@ -8,24 +8,27 @@
 
 import Alamofire
 import AVFoundation
-import AlamofireImage
 import SwiftyJSON
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
-    // MARK: viewDidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    fileprivate func setupApp() {
+        setUI()
         definesPresentationContext = true
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         downloadedPhoto.addGestureRecognizer(longPressRecognizer)
-        setUI()
         urlField.delegate = self
         if (pasteboard.string?.range(of: "instagram")) != nil {
             urlString = pasteboard.string!
             urlField.insertText(urlString)
         }
+    }
+
+    // MARK: viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupApp()
     }
 
     // MARK: Variables
@@ -51,12 +54,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
         // Keyboard
         hideKeyboardWhenTappedAround()
-    }
-
-    func setShadow() {
-        downloadedPhoto.layer.shadowOpacity = 0.45
-        downloadedPhoto.layer.shadowRadius = 8
-        downloadedPhoto.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
 
     // MARK: Functions
@@ -97,7 +94,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }).resume()
     }
-
 
     func generateDescription(swiftyJsonVar: JSON) {
         let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar))
