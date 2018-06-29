@@ -95,19 +95,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }).resume()
     }
 
-    func generateDescription(swiftyJsonVar: JSON) {
-        let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar))
+    func generateDescription(swiftyJsonVar: JSON, location: String) {
+        let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar), location: location)
         UIPasteboard.general.string = ret
     }
 
-    func getRightDesc(username: String) -> String {
-        return "📍 Roma\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #rome" +
+    func getRightDesc(username: String, location: String) -> String {
+        return "\(location)\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #rome" +
             "#ig_roma #ig_rome #igersroma #igerslazio #igersitalia #igers_italia #romanity #vatican #noidiroma #yallerslazio" +
             "#visit_rome #total_italy #italiainunoscatto #likeitaly #loves_roma #wheninrome #whatitalyis #rome_rooftops"
     }
 
     func buttonPressed() {
-        // Levo la tastiera
+        // Levo la tastieraœ
         hideKeyboardWhenTappedAround()
 
 
@@ -119,9 +119,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.downloadImage(url: url)
                 }
                 self.urlField.text = ""
-                self.locationText.text = self.getLocation(swiftyJsonVar: JSONResponse)
+                let location = self.getLocation(swiftyJsonVar: JSONResponse)
+                self.locationText.text = location
                 self.usernameText.text = "👤 @" + self.getUsername(swiftyJsonVar: JSONResponse)
-                self.generateDescription(swiftyJsonVar: JSONResponse)
+                self.generateDescription(swiftyJsonVar: JSONResponse, location: location)
             }) {
                 (error) -> Void in
                 print(error)
