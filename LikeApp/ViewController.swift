@@ -21,13 +21,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         urlField.delegate = self
         if (pasteboard.string?.range(of: "instagram")) != nil {
             urlString = pasteboard.string!
-            urlField.insertText(urlString)
+            urlField.insertText(String(urlString.prefix(40)))
         }
     }
 
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        print()
         setupApp()
     }
 
@@ -36,7 +37,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var urlString: String = ""
     var player: AVAudioPlayer?
     let impGenerator = UIImpactFeedbackGenerator()
-    let selGenerator = UISelectionFeedbackGenerator();
+    let selGenerator = UISelectionFeedbackGenerator()
+    let hashtagsArray = ["#roma","#rome","#ig_roma", "#ig_rome","#igersroma","#igerslazio","#igersitalia","#igers_italia","#romanity","#vatican","#noidiroma","#yallerslazio","#visit_rome","#total_italy","#italiainunoscatto","#likeitaly" ,"#loves_roma","#wheninrome","#whatitalyis","#rome_rooftops","#WorldCaptures","#BeautifulDestinations","#PassionPassport","#bellaroma", "#instaitalia","#thediscoverer"]
 
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
@@ -60,6 +62,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func generateButton(_: UIButton) {
         impGenerator.impactOccurred()
         buttonPressed()
+    }
+
+    func randomSelectHashtags(hashtags: [String]) -> [String]{
+        var ret = [String]()
+        for _ in 0...hashtags.count {
+            ret.append(hashtags.randomElement()!)
+        }
+        return ret
     }
 
     func textFieldShouldReturn(_: UITextField) -> Bool {
@@ -98,18 +108,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func generateDescription(swiftyJsonVar: JSON, location: String) {
         let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar), location: location)
         UIPasteboard.general.string = ret
+        print(ret)
     }
 
     func getRightDesc(username: String, location: String) -> String {
-        return "\(location)\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n#roma #rome" +
-            "#ig_roma #ig_rome #igersroma #igerslazio #igersitalia #igers_italia #romanity #vatican #noidiroma #yallerslazio" +
-            "#visit_rome #total_italy #italiainunoscatto #likeitaly #loves_roma #wheninrome #whatitalyis #rome_rooftops"
+        return "\(location)\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n" + Array(Set(randomSelectHashtags(hashtags: hashtagsArray))).joined(separator: " ")
     }
 
     func buttonPressed() {
-        // Levo la tastieraœ
         hideKeyboardWhenTappedAround()
-
 
         if urlField.text!.contains("instagram") {
             let strURL = getUrl()
@@ -128,47 +135,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 print(error)
             }
         }
-
-            /*
-            Alamofire.request(url).validate().responseJSON { response in
-                switch response.result {
-                case .success:
-                    // Pulisco l'URL
-
-
-                    // Scarico JSON
-                    let swiftyJsonVar = JSON(response.result.value!)
-
-                    // Genero la Descrcizione
-                    self.generateDescription(swiftyJsonVar: swiftyJsonVar)
-
-                    // Scarico la Foto e la inserisco nella UI
-
-                    // Scrivo il Geotag
-                    self.locationText.text = self.getLocation(swiftyJsonVar: swiftyJsonVar)
-
-                    // Scrivo l'Username
-                    self.usernameText.text = "👤 @" + self.getUsername(swiftyJsonVar: swiftyJsonVar)
-                    self.playSound(name: "done")
-
-                case .failure:
-                    self.playSound(name: "error")
-                    let alert = UIAlertController(title: "URL Instagram non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                        //NSLog("The \"OK\" alert occured.")
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
-        } else {
-            self.playSound(name: "error")
-            let alert = UIAlertController(title: "URL non valido!", message: "Inserisci un URL valido", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Riprova"), style: .default, handler: { _ in
-                NSLog("The \"OK\" alert occured.")
-            }))
-            present(alert, animated: true, completion: nil)
-        }
- */
     }
 
     func getLocation(swiftyJsonVar: JSON) -> String {
@@ -193,7 +159,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @objc func willEnterForeground() {
         if (pasteboard.string?.range(of: "instagram")) != nil {
             urlString = pasteboard.string!
-            urlField.insertText(urlString)
+            urlField.insertText(String(urlString.prefix(40)))
         }
     }
 
@@ -202,5 +168,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let vc = UIActivityViewController(activityItems: [self.downloadedPhoto.image!], applicationActivities: nil)
             present(vc, animated: true)
         }
+    }
+}
+
+extension Collection where Index == Int {
+    func randomElement() -> Iterator.Element? {
+        return isEmpty ? nil : self[Int(arc4random_uniform(UInt32(endIndex)))]
     }
 }
