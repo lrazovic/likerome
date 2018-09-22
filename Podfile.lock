@@ -9,6 +9,12 @@ DEPENDENCIES:
   - AlamofireImage
   - SwiftyJSON
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - SwiftyJSON
+
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   AlamofireImage: 3b35b586853abaf94ca1250f4e94cff3c21a4c0d
@@ -16,4 +22,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ad4d61b703809ae7da21f085d66abe3e119c0f34
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
