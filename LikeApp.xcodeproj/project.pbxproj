@@ -138,6 +138,7 @@
 				TargetAttributes = {
 					7DBB64031F97966800128EF6 = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -183,7 +184,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-LikeApp/Pods-LikeApp-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-LikeApp/Pods-LikeApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -194,7 +195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LikeApp/Pods-LikeApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LikeApp/Pods-LikeApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F3595AB2E698A359AF09A04E /* [CP] Check Pods Manifest.lock */ = {
@@ -370,7 +371,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lr.LikeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -389,7 +390,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lr.LikeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

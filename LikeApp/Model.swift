@@ -34,7 +34,6 @@ extension UIImageView {
 
 extension UIView {
     
-    // OUTPUT 1
     func dropShadow(scale: Bool = true) {
         self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.black.cgColor

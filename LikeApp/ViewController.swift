@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     fileprivate func setupApp() {
         setUI()
         definesPresentationContext = true
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
         downloadedPhoto.addGestureRecognizer(longPressRecognizer)
         urlField.delegate = self
@@ -99,8 +99,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     self.downloadedPhoto.clipsToBounds = true
                     self.downloadedPhoto.isUserInteractionEnabled = true
                     self.downloadedPhoto.image = UIImage(data: data)
-                    self.playSound(name: "complete")
                 }
+            } else {
+                print(error!)
             }
         }).resume()
     }
@@ -141,19 +142,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let locationString = swiftyJsonVar["graphql"]["shortcode_media"]["location"]["name"].stringValue
         if locationString == "" { return "📍" + "Non Impostata" }
         else { return "📍" + locationString }
-    }
-
-    func playSound(name: String) {
-        guard let sound = Bundle.main.url(forResource: name, withExtension: "m4a") else { return }
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
-            try AVAudioSession.sharedInstance().setActive(true)
-            player = try AVAudioPlayer(contentsOf: sound, fileTypeHint: AVFileType.m4a.rawValue)
-            guard let player = player else { return }
-            player.play()
-        } catch let error {
-            print(error.localizedDescription)
-        }
     }
 
     @objc func willEnterForeground() {
