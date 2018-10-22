@@ -38,7 +38,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var player: AVAudioPlayer?
     let impGenerator = UIImpactFeedbackGenerator()
     let selGenerator = UISelectionFeedbackGenerator()
-    let hashtagsArray = ["#roma","#rome","#ig_roma", "#ig_rome","#igersroma","#igerslazio","#igersitalia","#igers_italia","#romanity","#vatican","#noidiroma","#yallerslazio","#visit_rome","#total_italy","#italiainunoscatto","#likeitaly" ,"#loves_roma","#wheninrome","#whatitalyis","#rome_rooftops","#WorldCaptures","#BeautifulDestinations","#PassionPassport","#bellaroma", "#instaitalia","#thediscoverer"]
+    let hashtagsArray = ["#roma","#rome","#ig_roma", "#ig_rome","#igersroma","#igerslazio","#igersitalia","#igers_italia","#romanity","#vatican","#noidiroma","#yallerslazio","#visit_rome","#total_italy","#italiainunoscatto","#likeitaly" ,"#loves_roma","#wheninrome","#whatitalyis","#rome_rooftops","#WorldCaptures","#BeautifulDestinations","#PassionPassport","#bellaroma", "#instaitalia","#thediscoverer","#voyaged"]
 
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
@@ -113,7 +113,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     func getRightDesc(username: String, location: String) -> String {
-        return "\(location)\n📸 Foto di @\(username)\n-\nSeguici su ➡️ @likerome\n-\nTag:#️⃣ #likerome\n-\n\n" + Array(Set(randomSelectHashtags(hashtags: hashtagsArray))).joined(separator: " ")
+        return "\(location)\n📸 @\(username)\n—\nHashtag: #likerome\n—\n" + Array(Set(randomSelectHashtags(hashtags: hashtagsArray))).joined(separator: " ")
     }
 
     func buttonPressed() {
