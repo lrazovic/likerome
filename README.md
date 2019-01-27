@@ -1,13 +1,9 @@
-# LikeApp
+# @likerome 
 
-## Installazione
+## A simple Swift based application to download Instagram photos without any API access.
 
-1. Installare [Xcode](https://itunes.apple.com/it/app/xcode/id497799835?mt=12).
-2. Installare [CacoaPods](https://cocoapods.org/).
-3. Aprire il terminale e clonare la repo con `git clone https://github.com/lrazovic/LikeApp.git`.
-4. Entrare nella cartella con `cd LikeApp`.
-5. Installare le dipendenze con `pod install`.
-6. Aprire `LikeApp.xcworkspace`.
-7. Collegare l'iPhone e selezionarlo come *[Target](https://image.ibb.co/iZXGd6/Screenshot_2017_10_29_15_59_42.png)*.
-8. Premere Play
-9. Fine
+Technology used:
+* Swift 4.2
+* [Cocoapods 1.6](https://cocoapods.org/)
+* [Alamofire 4.x](https://github.com/Alamofire/Alamofire)
+* [SwiftyJSON 4.x](https://github.com/SwiftyJSON/SwiftyJSON)

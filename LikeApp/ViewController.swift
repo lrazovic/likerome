@@ -28,17 +28,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        print()
         setupApp()
     }
 
     // MARK: Variables
     let pasteboard = UIPasteboard.general
     var urlString: String = ""
-    var player: AVAudioPlayer?
     let impGenerator = UIImpactFeedbackGenerator()
     let selGenerator = UISelectionFeedbackGenerator()
-    let hashtagsArray = ["#roma","#rome","#ig_roma", "#ig_rome","#igersroma","#igerslazio","#igersitalia","#igers_italia","#romanity","#vatican","#noidiroma","#yallerslazio","#visit_rome","#total_italy","#italiainunoscatto","#likeitaly" ,"#loves_roma","#wheninrome","#whatitalyis","#rome_rooftops","#WorldCaptures","#BeautifulDestinations","#PassionPassport","#bellaroma", "#instaitalia","#thediscoverer","#voyaged"]
+    let hashtagsArray = ["#roma", "#rome", "#ig_roma", "#ig_rome", "#igersroma", "#igerslazio", "#igersitalia", "#igers_italia", "#romanity", "#vatican", "#noidiroma", "#yallerslazio", "#visit_rome", "#total_italy", "#italiainunoscatto", "#likeitaly", "#loves_roma", "#wheninrome", "#whatitalyis", "#rome_rooftops", "#WorldCaptures", "#BeautifulDestinations", "#PassionPassport", "#bellaroma", "#instaitalia", "#thediscoverer", "#voyaged"]
 
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
@@ -49,12 +47,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: User Interface
     func setUI() {
-
-        // Button
         buttonUi.layer.cornerRadius = 10
         buttonUi.frame.size = CGSize(width: 343, height: 45)
-
-        // Keyboard
         hideKeyboardWhenTappedAround()
     }
 
@@ -64,7 +58,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         buttonPressed()
     }
 
-    func randomSelectHashtags(hashtags: [String]) -> [String]{
+    func randomSelectHashtags(hashtags: [String]) -> [String] {
         var ret = [String]()
         for _ in 0...hashtags.count {
             ret.append(hashtags.randomElement()!)
@@ -91,34 +85,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     func downloadImage(url: URL) {
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-            if let data = data {
-                _ = UIImage(data: data)
-                DispatchQueue.main.async {
-                    self.downloadedPhoto.contentMode = .scaleAspectFill
-                    self.downloadedPhoto.clipsToBounds = true
-                    self.downloadedPhoto.isUserInteractionEnabled = true
-                    self.downloadedPhoto.image = UIImage(data: data)
-                }
-            } else {
-                print(error!)
+        Alamofire.request(url).responseData { response in
+            if let data = response.result.value {
+                self.downloadedPhoto.image = UIImage(data: data)
             }
-        }).resume()
+        }
     }
 
     func generateDescription(swiftyJsonVar: JSON, location: String) {
         let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar), location: location)
         UIPasteboard.general.string = ret
-        print(ret)
     }
 
     func getRightDesc(username: String, location: String) -> String {
-        return "\(location)\n📸 @\(username)\n—\nHashtag: #likerome\n—\n" + Array(Set(randomSelectHashtags(hashtags: hashtagsArray))).joined(separator: " ")
+        return "\(location)\n📸 @\(username)\n—\nhashtag: #likerome\n—\n" + Array(Set(randomSelectHashtags(hashtags: hashtagsArray))).joined(separator: " ")
     }
 
     func buttonPressed() {
         hideKeyboardWhenTappedAround()
-
         if urlField.text!.contains("instagram") {
             let strURL = getUrl()
             JSONWrapper.requestGETURL(strURL, success: {

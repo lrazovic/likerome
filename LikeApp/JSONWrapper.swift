@@ -13,7 +13,6 @@ import SwiftyJSON
 class JSONWrapper: NSObject {
     class func requestGETURL(_ strURL: String, success: @escaping (JSON) -> Void, failure: @escaping (Error) -> Void) {
         Alamofire.request(strURL).validate().responseJSON { (responseObject) -> Void in
-
             if responseObject.result.isSuccess {
                 let resJson = JSON(responseObject.result.value!)
                 success(resJson)

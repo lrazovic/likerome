@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +13,7 @@
         <!--LikeApp-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="LikeApp" id="BYZ-38-t0r" customClass="ViewController" customModule="LikeApp" sceneMemberID="viewController">
+                <viewController title="LikeApp" id="BYZ-38-t0r" customClass="ViewController" customModule="Likerome" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +54,7 @@
                                 <color key="tintColor" red="0.94885271787643433" green="0.95304292440414429" blue="0.9528852105140686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Genera"/>
                                 <connections>
-                                    <action selector="generateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0gq-TS-7sU"/>
+                                    <action selector="generateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jAK-jf-6fp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -63,11 +64,11 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="h86-8E-1KQ"/>
                     <connections>
-                        <outlet property="buttonUi" destination="kh8-0K-D0q" id="Fng-8M-0mu"/>
-                        <outlet property="downloadedPhoto" destination="4KN-7e-s7u" id="7xT-ag-vRa"/>
-                        <outlet property="locationText" destination="6vS-2W-rtu" id="eoh-fV-U0Y"/>
-                        <outlet property="urlField" destination="mbk-7A-2fo" id="3IG-L0-I8n"/>
-                        <outlet property="usernameText" destination="tXb-Dl-4ZO" id="HKs-Wt-Lfq"/>
+                        <outlet property="buttonUi" destination="kh8-0K-D0q" id="AkM-mt-hyD"/>
+                        <outlet property="downloadedPhoto" destination="4KN-7e-s7u" id="WXy-NF-xnr"/>
+                        <outlet property="locationText" destination="6vS-2W-rtu" id="ZfY-Zb-HeC"/>
+                        <outlet property="urlField" destination="mbk-7A-2fo" id="ezK-ZD-XAz"/>
+                        <outlet property="usernameText" destination="tXb-Dl-4ZO" id="DAb-Tj-V9X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
