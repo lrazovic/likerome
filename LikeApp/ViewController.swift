@@ -88,6 +88,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         Alamofire.request(url).responseData { response in
             if let data = response.result.value {
                 self.downloadedPhoto.image = UIImage(data: data)
+                self.downloadedPhoto.layer.cornerRadius = 8.0
             }
         }
     }
