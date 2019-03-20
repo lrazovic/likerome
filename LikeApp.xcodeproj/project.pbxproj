@@ -82,10 +82,10 @@
 			children = (
 				7D285C7F1FCD6F4900A2878F /* Assets.xcassets */,
 				7D2E12F61F9E7EA3006E629B /* Main.storyboard */,
-				7DBB64071F97966800128EF6 /* AppDelegate.swift */,
-				7DBB64091F97966800128EF6 /* ViewController.swift */,
 				7DBB64101F97966800128EF6 /* LaunchScreen.storyboard */,
 				7DBB64131F97966800128EF6 /* Info.plist */,
+				7DBB64071F97966800128EF6 /* AppDelegate.swift */,
+				7DBB64091F97966800128EF6 /* ViewController.swift */,
 				7DF5E3531F9E7F84006BC9F8 /* Model.swift */,
 				7D9A4ECA2073B407008B6E0C /* JSONWrapper.swift */,
 			);
