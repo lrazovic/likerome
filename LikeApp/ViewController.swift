@@ -1,10 +1,8 @@
-//
 //  ViewController.swift
 //  LikeApp
 //
 //  Created by Leonardo Razovic on 18/10/17.
 //  Copyright © 2017 Leonardo Razovic. All rights reserved.
-//
 
 import Alamofire
 import AVFoundation
