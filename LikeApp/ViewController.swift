@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var urlString: String = ""
     let impGenerator = UIImpactFeedbackGenerator()
     let selGenerator = UISelectionFeedbackGenerator()
-    let hashtagsArray = ["#roma", "#rome", "#ig_roma", "#ig_rome", "#igersroma", "#igerslazio", "#igersitalia", "#igers_italia", "#romanity", "#vatican", "#noidiroma", "#yallerslazio", "#visit_rome", "#total_italy", "#italiainunoscatto", "#likeitaly", "#loves_roma", "#wheninrome", "#whatitalyis", "#rome_rooftops", "#WorldCaptures", "#BeautifulDestinations", "#PassionPassport", "#bellaroma", "#instaitalia", "#thediscoverer", "#voyaged"]
+    let hashtagsArray = ["#roma", "#rome", "#ig_roma", "#ig_rome", "#igersroma", "#igersitalia", "#vatican", "#noidiroma", "#yallerslazio", "#visitrome", "#total_italy", "#italiainunoscatto", "#likeitaly", "#loves_roma", "#wheninrome", "#whatitalyis", "#WorldCaptures", "#BeautifulDestinations", "#PassionPassport", "#instaitalia", "#thediscoverer", "#voyaged", "#igerslazio", "#volgoroma", "#romanity","#italia", "#italy", "#рим", "#instagood", "#photooftheday","#repost","#vscocam","#colosseo","#traveling","#architecture","#history"]
 
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
@@ -57,9 +57,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     func randomSelectHashtags(hashtags: [String]) -> [String] {
+        var seed = hashtags
         var ret = [String]()
-        for _ in 0...hashtags.count {
-            ret.append(hashtags.randomElement()!)
+        for _ in 0...25 {
+            let element = seed.randomElement()!
+            ret.append(element)
+            if let index = seed.firstIndex(of: element) {
+                seed.remove(at: index)
+            }
         }
         return ret
     }
