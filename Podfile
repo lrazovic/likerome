@@ -7,4 +7,5 @@ target 'Likerome' do
   # Pods for Likerome
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'AlamofireImage', '~> 3.5'
 end

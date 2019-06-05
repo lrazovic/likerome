@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7D285C801FCD6F4A00A2878F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D285C7F1FCD6F4900A2878F /* Assets.xcassets */; };
 		7D2E12F71F9E7EA3006E629B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E12F61F9E7EA3006E629B /* Main.storyboard */; };
-		7D9A4ECB2073B407008B6E0C /* JSONWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9A4ECA2073B407008B6E0C /* JSONWrapper.swift */; };
+		7DB9B63C22A83545003517CC /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB9B63B22A83545003517CC /* Data.swift */; };
 		7DBB64081F97966800128EF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB64071F97966800128EF6 /* AppDelegate.swift */; };
 		7DBB640A1F97966800128EF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB64091F97966800128EF6 /* ViewController.swift */; };
 		7DBB64121F97966800128EF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DBB64101F97966800128EF6 /* LaunchScreen.storyboard */; };
@@ -22,7 +22,7 @@
 		77F5EF6B80CFC206E40ED131 /* Pods_Likerome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Likerome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D285C7F1FCD6F4900A2878F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D2E12F61F9E7EA3006E629B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		7D9A4ECA2073B407008B6E0C /* JSONWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWrapper.swift; sourceTree = "<group>"; };
+		7DB9B63B22A83545003517CC /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		7DBB64041F97966800128EF6 /* Likerome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Likerome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DBB64071F97966800128EF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DBB64091F97966800128EF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 				7DBB64071F97966800128EF6 /* AppDelegate.swift */,
 				7DBB64091F97966800128EF6 /* ViewController.swift */,
 				7DF5E3531F9E7F84006BC9F8 /* Model.swift */,
-				7D9A4ECA2073B407008B6E0C /* JSONWrapper.swift */,
+				7DB9B63B22A83545003517CC /* Data.swift */,
 			);
 			path = LikeApp;
 			sourceTree = "<group>";
@@ -180,11 +180,13 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Likerome/Pods-Likerome-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,9 +220,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DF5E3541F9E7F84006BC9F8 /* Model.swift in Sources */,
+				7DB9B63C22A83545003517CC /* Data.swift in Sources */,
 				7DBB640A1F97966800128EF6 /* ViewController.swift in Sources */,
 				7DBB64081F97966800128EF6 /* AppDelegate.swift in Sources */,
-				7D9A4ECB2073B407008B6E0C /* JSONWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
