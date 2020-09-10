@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D221D3C250A21D900E06368 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 7D221D3B250A21D900E06368 /* SwiftyJSON */; };
+		7D221D3F250A21EB00E06368 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7D221D3E250A21EB00E06368 /* Alamofire */; };
 		7D285C801FCD6F4A00A2878F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D285C7F1FCD6F4900A2878F /* Assets.xcassets */; };
 		7D2E12F71F9E7EA3006E629B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D2E12F61F9E7EA3006E629B /* Main.storyboard */; };
 		7D9A4ECB2073B407008B6E0C /* JSONWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9A4ECA2073B407008B6E0C /* JSONWrapper.swift */; };
@@ -14,11 +16,9 @@
 		7DBB640A1F97966800128EF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBB64091F97966800128EF6 /* ViewController.swift */; };
 		7DBB64121F97966800128EF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DBB64101F97966800128EF6 /* LaunchScreen.storyboard */; };
 		7DF5E3541F9E7F84006BC9F8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5E3531F9E7F84006BC9F8 /* Model.swift */; };
-		EC2215E2E3B2AF2180AF4C10 /* Pods_Likerome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F5EF6B80CFC206E40ED131 /* Pods_Likerome.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0293139FEB8CE4CB7F28C07C /* Pods-LikeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LikeApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LikeApp/Pods-LikeApp.debug.xcconfig"; sourceTree = "<group>"; };
 		77F5EF6B80CFC206E40ED131 /* Pods_Likerome.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Likerome.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D285C7F1FCD6F4900A2878F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D2E12F61F9E7EA3006E629B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -30,9 +30,6 @@
 		7DBB64131F97966800128EF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DF5E3531F9E7F84006BC9F8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8C9ECF487BD1939E01F0C7A4 /* Pods_LikeApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LikeApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90D5CA9F691B3FD87FFDAB93 /* Pods-Likerome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Likerome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Likerome/Pods-Likerome.debug.xcconfig"; sourceTree = "<group>"; };
-		BD31F4714901E764C31A7FB1 /* Pods-Likerome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Likerome.release.xcconfig"; path = "Pods/Target Support Files/Pods-Likerome/Pods-Likerome.release.xcconfig"; sourceTree = "<group>"; };
-		DE4D27A8D6C16D1565CBE2D1 /* Pods-LikeApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LikeApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-LikeApp/Pods-LikeApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,30 +37,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC2215E2E3B2AF2180AF4C10 /* Pods_Likerome.framework in Frameworks */,
+				7D221D3F250A21EB00E06368 /* Alamofire in Frameworks */,
+				7D221D3C250A21D900E06368 /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		30881610C5B632AD4E79C523 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0293139FEB8CE4CB7F28C07C /* Pods-LikeApp.debug.xcconfig */,
-				DE4D27A8D6C16D1565CBE2D1 /* Pods-LikeApp.release.xcconfig */,
-				90D5CA9F691B3FD87FFDAB93 /* Pods-Likerome.debug.xcconfig */,
-				BD31F4714901E764C31A7FB1 /* Pods-Likerome.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		7DBB63FB1F97966800128EF6 = {
 			isa = PBXGroup;
 			children = (
 				7DBB64061F97966800128EF6 /* LikeApp */,
 				7DBB64051F97966800128EF6 /* Products */,
-				30881610C5B632AD4E79C523 /* Pods */,
 				A58A49339D94A1C65017DBE1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -108,17 +94,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7DBB64161F97966800128EF6 /* Build configuration list for PBXNativeTarget "Likerome" */;
 			buildPhases = (
-				F3595AB2E698A359AF09A04E /* [CP] Check Pods Manifest.lock */,
 				7DBB64001F97966800128EF6 /* Sources */,
 				7DBB64011F97966800128EF6 /* Frameworks */,
 				7DBB64021F97966800128EF6 /* Resources */,
-				0FFED53DFD1E4C12513B5E72 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Likerome;
+			packageProductDependencies = (
+				7D221D3B250A21D900E06368 /* SwiftyJSON */,
+				7D221D3E250A21EB00E06368 /* Alamofire */,
+			);
 			productName = LikeApp;
 			productReference = 7DBB64041F97966800128EF6 /* Likerome.app */;
 			productType = "com.apple.product-type.application";
@@ -129,6 +117,7 @@
 		7DBB63FC1F97966800128EF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Leonardo Razovic";
@@ -141,7 +130,7 @@
 				};
 			};
 			buildConfigurationList = 7DBB63FF1F97966800128EF6 /* Build configuration list for PBXProject "LikeApp" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -149,6 +138,10 @@
 				Base,
 			);
 			mainGroup = 7DBB63FB1F97966800128EF6;
+			packageReferences = (
+				7D221D3A250A21D900E06368 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				7D221D3D250A21EB00E06368 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 7DBB64051F97966800128EF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -170,47 +163,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0FFED53DFD1E4C12513B5E72 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Likerome/Pods-Likerome-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Likerome/Pods-Likerome-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F3595AB2E698A359AF09A04E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Likerome-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7DBB64001F97966800128EF6 /* Sources */ = {
@@ -288,7 +240,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -342,10 +294,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -353,7 +306,6 @@
 		};
 		7DBB64171F97966800128EF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90D5CA9F691B3FD87FFDAB93 /* Pods-Likerome.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -362,7 +314,10 @@
 				DEVELOPMENT_TEAM = 83GJCX62B5;
 				INFOPLIST_FILE = LikeApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lr.Likerome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -373,7 +328,6 @@
 		};
 		7DBB64181F97966800128EF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD31F4714901E764C31A7FB1 /* Pods-Likerome.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -382,7 +336,10 @@
 				DEVELOPMENT_TEAM = 83GJCX62B5;
 				INFOPLIST_FILE = LikeApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lr.Likerome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -413,6 +370,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7D221D3A250A21D900E06368 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		7D221D3D250A21EB00E06368 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7D221D3B250A21D900E06368 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D221D3A250A21D900E06368 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		7D221D3E250A21EB00E06368 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7D221D3D250A21EB00E06368 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7DBB63FC1F97966800128EF6 /* Project object */;
 }

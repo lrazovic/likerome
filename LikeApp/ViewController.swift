@@ -7,9 +7,11 @@
 import Alamofire
 import AVFoundation
 import SwiftyJSON
+import UIKit
+
 
 class ViewController: UIViewController, UITextFieldDelegate {
-
+    
     fileprivate func setupApp() {
         setUI()
         definesPresentationContext = true
@@ -22,40 +24,40 @@ class ViewController: UIViewController, UITextFieldDelegate {
             urlField.insertText(String(urlString.prefix(40)))
         }
     }
-
+    
     // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupApp()
     }
-
+    
     // MARK: Variables
     let pasteboard = UIPasteboard.general
     var urlString: String = ""
     let impGenerator = UIImpactFeedbackGenerator()
     let selGenerator = UISelectionFeedbackGenerator()
     let hashtagsArray = ["#roma", "#rome", "#ig_roma", "#ig_rome", "#igersroma", "#igersitalia", "#vatican", "#noidiroma", "#yallerslazio", "#visitrome", "#total_italy", "#italiainunoscatto", "#likeitaly", "#loves_roma", "#wheninrome", "#whatitalyis", "#WorldCaptures", "#BeautifulDestinations", "#PassionPassport", "#instaitalia", "#thediscoverer", "#voyaged", "#igerslazio", "#volgoroma", "#romanity","#italia", "#italy", "#рим", "#instagood", "#photooftheday","#repost","#vscocam","#colosseo","#traveling","#architecture","#history"]
-
+    
     // MARK: Outlets
     @IBOutlet var buttonUi: UIButton!
     @IBOutlet var urlField: UITextField!
     @IBOutlet var downloadedPhoto: UIImageView!
     @IBOutlet var locationText: UILabel!
     @IBOutlet var usernameText: UILabel!
-
+    
     // MARK: User Interface
     func setUI() {
         buttonUi.layer.cornerRadius = 10
         buttonUi.frame.size = CGSize(width: 343, height: 45)
         hideKeyboardWhenTappedAround()
     }
-
+    
     // MARK: Functions
     @IBAction func generateButton(_: UIButton) {
         impGenerator.impactOccurred()
         buttonPressed()
     }
-
+    
     func randomSelectHashtags(hashtags: [String]) -> [String] {
         var seed = hashtags
         var ret = [String]()
@@ -68,43 +70,46 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         return ret
     }
-
+    
     func textFieldShouldReturn(_: UITextField) -> Bool {
         view.endEditing(true)
         buttonPressed()
         return true
     }
-
+    
     func getPhoto(swiftyJsonVar: JSON) -> String {
         return swiftyJsonVar["graphql"]["shortcode_media"]["display_url"].stringValue
     }
-
+    
     func getUrl() -> String {
         return urlField.text! + "?__a=1"
     }
-
+    
     func getUsername(swiftyJsonVar: JSON) -> String {
         return swiftyJsonVar["graphql"]["shortcode_media"]["owner"]["username"].stringValue
     }
-
+    
     func downloadImage(url: URL) {
-        Alamofire.request(url).responseData { response in
-            if let data = response.result.value {
-                self.downloadedPhoto.image = UIImage(data: data)
+        AF.request(url).responseData { response in
+            switch response.result {
+            case .success(let value):
+                self.downloadedPhoto.image = UIImage(data: value)
                 self.downloadedPhoto.layer.cornerRadius = 8.0
+            case .failure(let error):
+                print(error)
             }
         }
     }
-
+    
     func generateDescription(swiftyJsonVar: JSON, location: String) {
         let ret: String = getRightDesc(username: getUsername(swiftyJsonVar: swiftyJsonVar), location: location)
         UIPasteboard.general.string = ret
     }
-
+    
     func getRightDesc(username: String, location: String) -> String {
         return "\(location)\n📸 @\(username)\n—\nhashtag: #likerome\n—\n" + Array(Set(randomSelectHashtags(hashtags: hashtagsArray))).joined(separator: " ")
     }
-
+    
     func buttonPressed() {
         hideKeyboardWhenTappedAround()
         if urlField.text!.contains("instagram") {
@@ -127,20 +132,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
+    
     func getLocation(swiftyJsonVar: JSON) -> String {
         let locationString = swiftyJsonVar["graphql"]["shortcode_media"]["location"]["name"].stringValue
         if locationString == "" { return "📍" + "Non Impostata" }
         else { return "📍" + locationString }
     }
-
+    
     @objc func willEnterForeground() {
         if (pasteboard.string?.range(of: "instagram")) != nil {
             urlString = pasteboard.string!
             urlField.insertText(String(urlString.prefix(40)))
         }
     }
-
+    
     @objc func longPressed(sender _: UILongPressGestureRecognizer) {
         if downloadedPhoto.image != nil {
             let vc = UIActivityViewController(activityItems: [self.downloadedPhoto.image!], applicationActivities: nil)

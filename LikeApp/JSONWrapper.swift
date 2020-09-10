@@ -12,16 +12,15 @@ import SwiftyJSON
 
 class JSONWrapper: NSObject {
     class func requestGETURL(_ strURL: String, success: @escaping (JSON) -> Void, failure: @escaping (Error) -> Void) {
-        Alamofire.request(strURL).validate().responseJSON { (responseObject) -> Void in
-            if responseObject.result.isSuccess {
-                let resJson = JSON(responseObject.result.value!)
+        AF.request(strURL).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let resJson = JSON(value)
                 success(resJson)
-            }
-            if responseObject.result.isFailure {
-                let error: Error = responseObject.result.error!
+            case .failure(let error):
                 failure(error)
             }
         }
     }
-
+    
 }
